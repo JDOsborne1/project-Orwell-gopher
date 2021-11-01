@@ -27,8 +27,9 @@ func (f Field) call_size() {
 }
 
 type Entity struct {
-	position [2]float32
-	velocity [2]float32
+	position   [2]float32
+	velocity   [2]float32
+	magnitudes map[string]float32
 }
 
 type Entity_interface interface {
@@ -40,6 +41,12 @@ type Entity_interface interface {
 
 func (e Entity) get_position() {
 	fmt.Println(e.position)
+}
+
+func (e Entity) get_field_position(field_name string) ([2]float32, float32) {
+
+	return e.position, e.magnitudes[field_name]
+
 }
 
 func (e Entity) get_velocity() {
@@ -68,7 +75,11 @@ func main() {
 	//test_f.call_size()
 
 	//var test_e Entity_interface = &Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
-	var test_e2 = Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
+	var test_e2 = Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}, magnitudes: map[string]float32{"gravity": 0.4}}
+	fmt.Println(test_e2.magnitudes)
+
+	fmt.Println(test_e2.magnitudes["gravity"])
+	fmt.Println(test_e2.get_field_position("gravity"))
 
 	fmt.Println(test_e2.position)
 	fmt.Println(test_e2.velocity)
