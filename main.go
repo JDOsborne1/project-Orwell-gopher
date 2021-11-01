@@ -67,6 +67,12 @@ func (e *Entity) iterate_velocity(input [2]float32) {
 
 }
 
+func (e *Entity) step(input [2]float32) {
+	e.iterate_velocity(input)
+	e.iterate_position()
+
+}
+
 func main() {
 
 	//var test_f Field_interface = Field{size: 4, vals: [][]int{{1, 2, 3, 4}, {4, 3, 2, 1}, {3, 4, 5, 6}, {6, 5, 4, 3}}, desc: "a testing field"}
@@ -76,16 +82,17 @@ func main() {
 
 	//var test_e Entity_interface = &Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
 	var test_e2 = Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}, magnitudes: map[string]float32{"gravity": 0.4}}
-	fmt.Println(test_e2.magnitudes)
 
-	fmt.Println(test_e2.magnitudes["gravity"])
 	fmt.Println(test_e2.get_field_position("gravity"))
 
-	fmt.Println(test_e2.position)
-	fmt.Println(test_e2.velocity)
-	test_e2.iterate_velocity([2]float32{10, -10})
-	fmt.Println(test_e2.velocity)
+	//fmt.Println(test_e2.position)
+	//fmt.Println(test_e2.velocity)
+	//test_e2.iterate_velocity([2]float32{1, -1})
+	//fmt.Println(test_e2.velocity)
 
-	test_e2.iterate_position()
 	test_e2.get_position()
+	test_e2.get_velocity()
+	test_e2.step([2]float32{10, 10})
+	test_e2.get_position()
+	test_e2.get_velocity()
 }
