@@ -35,6 +35,7 @@ type Entity_interface interface {
 	get_position()
 	get_velocity()
 	iterate_position()
+	iterate_velocity()
 }
 
 func (e Entity) get_position() {
@@ -52,6 +53,13 @@ func (e *Entity) iterate_position() {
 
 }
 
+func (e *Entity) iterate_velocity(input [2]float32) {
+	for index, value := range e.velocity {
+		e.velocity[index] = value + input[index]
+	}
+
+}
+
 func main() {
 
 	//var test_f Field_interface = Field{size: 4, vals: [][]int{{1, 2, 3, 4}, {4, 3, 2, 1}, {3, 4, 5, 6}, {6, 5, 4, 3}}, desc: "a testing field"}
@@ -59,11 +67,14 @@ func main() {
 	//test_f.call_desc()
 	//test_f.call_size()
 
-	var test_e Entity_interface = &Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
+	//var test_e Entity_interface = &Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
+	var test_e2 = Entity{position: [2]float32{2.2, 1.2}, velocity: [2]float32{0.2, -0.1}}
 
-	test_e.get_position()
-	test_e.get_velocity()
+	fmt.Println(test_e2.position)
+	fmt.Println(test_e2.velocity)
+	test_e2.iterate_velocity([2]float32{10, -10})
+	fmt.Println(test_e2.velocity)
 
-	test_e.iterate_position()
-	test_e.get_position()
+	test_e2.iterate_position()
+	test_e2.get_position()
 }
